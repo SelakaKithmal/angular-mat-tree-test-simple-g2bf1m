@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { DataService } from './data.service';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { NestedTreeControl } from '@angular/cdk/tree';
-import { MatTreeNestedDataSource } from '@angular/material/tree';
+import { Component } from "@angular/core";
+import { DataService } from "./data.service";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
+import { NestedTreeControl } from "@angular/cdk/tree";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
 
 /**
  * Just created a type to repreasent your data
@@ -15,33 +15,37 @@ interface PropData {
 }
 
 @Component({
-  selector: 'my-app',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: "my-app",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
-
-  getChildren = (node) => {
+  getChildren = node => {
     return this.data.getData();
-  }
+  };
 
   // The data source needs to be an actual data source type.  Below
   // I used a MatTreeNestedDataSource as properDataSource.  That is
   // what is actually attached to the template.  This I just left in
-  // for comparison 
+  // for comparison
   dataSource: any[];
   treeControl = new NestedTreeControl<PropData>(node => node.children);
 
   topLevelData: PropData[] = [
     {
-      prop: 'people',
-      children: [ { prop: 'foo'} ]
+      prop: "people",
+      children: [
+        { prop: "foo5" },
+        { prop: "foo6" },
+        { prop: "foo7" },
+        { prop: "foo8" }
+      ]
     },
     {
-      prop: 'people again',
-      children: [ { prop: 'foo'},{ prop: 'foo1'},{ prop: 'foo2'} ]
+      prop: "people again",
+      children: [{ prop: "foo0" }, { prop: "foo1" }, { prop: "foo2" }]
     }
-  ]
+  ];
 
   properDataSource = new MatTreeNestedDataSource<PropData>();
 
@@ -55,5 +59,6 @@ export class AppComponent {
   }
 
   // Rewritten slightly based on the interface I created.
-  hasChild = (_: number, node: PropData) => !!node.children && node.children.length > 0;
+  hasChild = (_: number, node: PropData) =>
+    !!node.children && node.children.length > 0;
 }
