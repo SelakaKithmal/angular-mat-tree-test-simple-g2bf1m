@@ -1,0 +1,26 @@
+<h1>MatTreeTest</h1>
+
+<mat-tree [dataSource]="properDataSource" [treeControl]="treeControl">
+  <mat-tree-node *matTreeNodeDef="let node">
+    <button mat-icon-button disabled></button>
+    <div>
+    {{node.prop}}
+    </div>
+  </mat-tree-node>
+
+
+  <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+    <button mat-icon-button matTreeNodeToggle>
+      <mat-icon class="mat-icon-rtl-mirror">
+        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+      </mat-icon>
+    </button>
+    {{node.prop}}
+
+    <!-- This part wasn't in yours at all, its how you show nested 
+        children on the control. -->
+    <ul [class.example-tree-invisible]="!treeControl.isExpanded(node)">
+        <ng-container matTreeNodeOutlet></ng-container>
+    </ul>
+  </mat-nested-tree-node>
+</mat-tree>
